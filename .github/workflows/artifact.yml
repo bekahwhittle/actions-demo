@@ -1,6 +1,7 @@
 name: artifact 😸 
 on: [push]  
 
+jobs: 
 	upload-artifact:
 		steps:
 			- shell: bash
