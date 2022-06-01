@@ -1,4 +1,4 @@
-name: bats 🦇
+name: Bats 🦇
 on: [push]
 
 jobs:
