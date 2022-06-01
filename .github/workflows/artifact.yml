@@ -2,7 +2,6 @@ name: artifact 😸
 on: [push]  
 
 	upload-artifact:
-		name: uploading...
 		steps:
 			- shell: bash
 				run: |
