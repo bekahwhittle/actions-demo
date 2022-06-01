@@ -1,0 +1,21 @@
+name: artifact 😸 
+on: [push]  
+
+	upload-artifact:
+		name: uploading...
+		steps:
+			- shell: bash
+				run: |
+					expr 1 + 1 > output.log
+			- name: Upload output file
+				uses: actions/upload-artifact@v3
+				with:
+					name: output-log-file
+					path: output.log
+	download-artifact:
+		needs: upload-artifact
+		steps:
+		- name: downloading...
+			uses: actions/download-artifact@v3
+			with:
+			name: output-log-file
