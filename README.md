@@ -1,7 +1,7 @@
-### CircleCI Demo 
+### Actions Demo
 
-> CircleCI helps your teams iterate quickly by integrating with your VCS and tightening the developer feedback loop. 
+> Actions helps your teams iterate quickly with automation
 
-This is a small react-app demo to show how CircleCI easily builds, tests and deploys your application! 
+This is a small react-app demo to show how Actions easily builds, tests and deploys your application! 
 
 > Pssttt... don't forget to `yarn build` before deploying 🤭
