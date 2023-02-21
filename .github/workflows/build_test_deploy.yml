@@ -77,41 +77,41 @@ jobs:
     - uses: actions/upload-artifact@v3.1.1
       with:
         path: "~/project/tests/junit.xml"
-  build-docker-image:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    needs:
-    - test
-    - lint
-    env:
-      GCLOUD_SERVICE_KEY:
-      GOOGLE_COMPUTE_ZONE:
-      GOOGLE_PROJECT_ID:
-    steps:
-    - uses: actions/checkout@v3.3.0
+  # build-docker-image:
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #   - test
+  #   - lint
+  #   env:
+  #     GCLOUD_SERVICE_KEY:
+  #     GOOGLE_COMPUTE_ZONE:
+  #     GOOGLE_PROJECT_ID:
+  #   steps:
+  #   - uses: actions/checkout@v3.3.0
 #     # This item has no matching transformer
 #     - circleci_gcp_gcr_gcr_auth:
 #     # This item has no matching transformer
 #     - circleci_gcp_gcr_build_image:
 #     # This item has no matching transformer
 #     - circleci_gcp_gcr_push_image:
-  hold-gke-deploy:
-    environment:
-      name: approval
-    runs-on: ubuntu-latest
-    needs:
-    - build-docker-image
-    steps:
-    - run: echo 'approved'
-  gke-deploy:
-    runs-on: ubuntu-latest
-    needs:
-    - hold-gke-deploy
-    env:
-      GCLOUD_SERVICE_KEY:
-      GOOGLE_COMPUTE_ZONE:
-      GOOGLE_PROJECT_ID:
-    steps:
+  # hold-gke-deploy:
+  #   environment:
+  #     name: approval
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #   - build-docker-image
+  #   steps:
+  #   - run: echo 'approved'
+  # gke-deploy:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #   - hold-gke-deploy
+  #   env:
+  #     GCLOUD_SERVICE_KEY:
+  #     GOOGLE_COMPUTE_ZONE:
+  #     GOOGLE_PROJECT_ID:
+  #   steps:
 #     # This item has no matching transformer
 #     - circleci_gcp_gcr_gcr_auth:
 #     # This item has no matching transformer
