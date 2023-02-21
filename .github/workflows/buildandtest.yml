@@ -1,4 +1,4 @@
-name: bekahwhittle/circleci-demo/build_test_deploy
+name: Build and Test 👷🏼‍♀️
 on:
   push:
     branches:
