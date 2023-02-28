@@ -1,0 +1,51 @@
+name: Test 🛠
+on:
+  push:
+    branches:
+    - main
+
+jobs: 
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: node:14.0.0
+    needs:
+    - build
+    steps:
+    - uses: actions/checkout@v3.3.0
+    - name: restore_cache
+      uses: actions/cache@v3.2.2
+      with:
+        key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        restore-keys: |-
+          yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          yarn-packages-v1-{{ .Branch }}-
+          yarn-packages-v1-
+        path: "~/.cache/yarn"
+    - run: yarn install
+    - run: yarn lint
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/base:10
+    needs:
+    - build
+    steps:
+    - uses: actions/checkout@v3.3.0
+    - name: restore_cache
+      uses: actions/cache@v3.2.2
+      with:
+        key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        restore-keys: |-
+          yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          yarn-packages-v1-{{ .Branch }}-
+          yarn-packages-v1-
+        path: "~/.cache/yarn"
+    - run: yarn install --frozen-lockfile
+    - run: yarn cypress run $CYPRESS_TEST
+    - uses: actions/upload-artifact@v3.1.1
+      with:
+        path: "~/project/tests"
+    - uses: actions/upload-artifact@v3.1.1
+      with:
+        path: "~/project/tests/junit.xml"

@@ -1,0 +1,35 @@
+name: Build 👷🏼‍♀️
+on:
+  push:
+    branches:
+    - main
+env:
+  SLACK_WEBHOOK: xxxxhJVq
+jobs:
+  artifacts:
+    defaults:
+      run:
+        working-directory: "/tmp"
+    runs-on: ubuntu-latest
+    container:
+      image: node:14.0.0
+    steps:
+    - name: Creating Dummy Artifacts
+      run: |-
+        echo "my artifact file" > /tmp/art-1;
+        mkdir /tmp/artifacts;
+        echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+    - uses: actions/upload-artifact@v3.1.1
+      with:
+        path: "/tmp/art-1"
+    - uses: actions/upload-artifact@v3.1.1
+      with:
+        path: "/tmp/artifacts"
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:14.0.0
+    steps:
+    - uses: actions/checkout@v3.3.0
+    - run: yarn install
+    - run: CYPRESS_INSTALL_BINARY=0 yarn add cypress
